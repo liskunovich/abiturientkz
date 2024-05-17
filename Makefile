@@ -1,6 +1,8 @@
 include .env
 export
 
+POETRY := python3.10 -m poetry
+
 VENV_PATH = .venv
 
 ifeq ("$(wildcard $(VENV_PATH))", "")
@@ -20,8 +22,16 @@ init: install ## init poetry
 	poetry run pre-commit install
 
 requirements.txt: ## generate requirements.txt
-	cd src && poetry export -f requirements.txt --output ../requirements.txt
+	$(POETRY) export -f requirements.txt --output requirements.txt
+
+run:
+	$(PYTHON) -m abiturient
 
 dbs: ## up databases
 	docker compose -f docker-compose-dbs.yml up
 
+build: ## build services
+	docker compose -f docker-compose.yml build
+
+abiturient_cluster_run: ## run abiturient clust - db and services
+	scripts/abiturient_cluster_run.sh
