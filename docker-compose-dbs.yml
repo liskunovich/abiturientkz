@@ -3,13 +3,14 @@ networks:
     name: abiturient_net
 
 services:
-  db:
+  postgres:
     container_name: abiturient_db
+    hostname: postgresql
     image: "postgres:14.1-alpine"
     env_file:
       - .env
     ports:
-      - "5432:5432"
+      - "5455:5432"
     ulimits:
       nofile:
         soft: 20000
@@ -18,3 +19,13 @@ services:
       - abiturient_net
     environment:
       - LANG=C.UTF_8
+
+  redis:
+    container_name: abitueint_redis
+    image: redis
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    networks:
+      - abiturient_net
