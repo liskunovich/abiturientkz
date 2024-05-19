@@ -63,3 +63,23 @@ services:
         delay: 15s
         max_attempts: 3
         window: 120s
+
+  abiturient_profile:
+    container_name: abiturient_profile
+    build:
+      context: .
+      dockerfile: abiturient/apps/profile/Dockerfile
+    env_file:
+      - .env
+    expose:
+      - "$ABITURIENT_PORT"
+    networks:
+      - abiturient_net
+    volumes:
+      - ./abiturient:/abiturient
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
