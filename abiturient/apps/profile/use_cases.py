@@ -23,3 +23,11 @@ class UpdateUserProfileUseCase(BaseUseCaseWithSession):
             await profile_writer.update_profile(id=current_user.profile.id, **profile.model_dump(exclude_unset=True))
             await self.session.commit()
             return ProfileResponseSchema(user_id=current_user.id, **profile.model_dump(exclude_unset=True))
+
+
+class CreateUniversityReview(BaseUseCaseWithSession):
+    ...
+
+
+class CreateEducationalProgramReview(BaseUseCaseWithSession):
+    ...

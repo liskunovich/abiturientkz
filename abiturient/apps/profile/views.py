@@ -34,3 +34,27 @@ async def create_educational_program_review(
             async_session(settings_instance.db_url.unicode_string(), settings_instance))
 ):
     ...
+
+
+async def get_my_reviews(
+        current_user: User = Depends(get_current_user()),
+        session: AsyncSession = Depends(
+            async_session(settings_instance.db_url.unicode_string(), settings_instance))
+):
+    ...
+
+
+async def get_reviews_for_educational_program(
+        current_user: User = Depends(get_current_user()),
+        session: AsyncSession = Depends(
+            async_session(settings_instance.db_url.unicode_string(), settings_instance))
+):
+    ...
+
+
+async def get_reviews_for_university(
+        current_user: User = Depends(get_current_user()),
+        session: AsyncSession = Depends(
+            async_session(settings_instance.db_url.unicode_string(), settings_instance))
+):
+    ...
