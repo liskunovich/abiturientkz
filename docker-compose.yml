@@ -55,8 +55,6 @@ services:
       - "$ABITURIENT_PORT"
     networks:
       - abiturient_net
-    volumes:
-      - ./abiturient:/abiturient
     deploy:
       restart_policy:
         condition: on-failure
@@ -75,8 +73,24 @@ services:
       - "$ABITURIENT_PORT"
     networks:
       - abiturient_net
-    volumes:
-      - ./abiturient:/abiturient
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
+  abiturient_ent:
+    container_name: abiturient_ent
+    build:
+      context: .
+      dockerfile: abiturient/apps/ent/Dockerfile
+    env_file:
+      - .env
+    expose:
+      - "$ABITURIENT_PORT"
+    networks:
+      - abiturient_net
     deploy:
       restart_policy:
         condition: on-failure
