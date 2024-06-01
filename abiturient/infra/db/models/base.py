@@ -12,6 +12,7 @@ class Base:
         default=uuid.uuid4,
         primary_key=True,
         index=True,
+        unique=True
     )
     created_at = Column(
         DateTime,
