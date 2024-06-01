@@ -21,11 +21,26 @@ services:
       - LANG=C.UTF_8
 
   redis:
-    container_name: abitueint_redis
+    container_name: abiturient_redis
     image: redis
     env_file:
       - .env
     ports:
       - "6379:6379"
+    networks:
+      - abiturient_net
+
+
+  worker:
+    container_name: abiturient_taskiq_worker
+    build:
+      context: .
+    command: taskiq worker abiturient.core.taskiq:broker abiturient.apps.ent.tasks --log-level DEBUG #--fs-discover
+    volumes:
+      - ./abiturient:/abiturient
+    env_file:
+      - .env
+    depends_on:
+      - redis
     networks:
       - abiturient_net
